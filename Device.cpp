@@ -3,7 +3,7 @@
 
 
 //Constructor, creates new device.
-//: name(deviceName) initializer list. 
+// name(deviceName) initializer list. 
 // Creates private member name with the value passed in deviceName directly.
 //Remains empty because initilization is done in the list.
 Device::Device(const std::string& deviceName) : name(deviceName) {

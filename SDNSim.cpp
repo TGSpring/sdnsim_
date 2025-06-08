@@ -13,7 +13,23 @@ int main()
 
 	//Connect said devices TEST
 	control.connectDevices("Router", "Switch");
-	control.connectDevices("Switch", "Firewall");
+
+	//Disconnecting Firewall for packet test.
+	//control.connectDevices("Switch", "Firewall");
+
+	std::cout << "\n--- Packet Tests ---\n";
+
+	//Valid
+	control.sendPacket("Router", "Switch", "Ping");
+
+	//Invalid. Destination is not a neighbor.
+	control.sendPacket("Router", "Firewall", "Ping");
+
+	//Invalid. Source does not exist.
+	control.sendPacket("Ghost", "Switch", "Ping");
+
+	//Invalid. Destination doesn't exist
+	control.sendPacket("Router", "Void", "Ping");
 
 	//Print device neighbors TEST
 	for (const auto& deviceName : { "Router", "Switch", "Firewall" }) {

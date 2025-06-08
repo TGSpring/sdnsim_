@@ -21,4 +21,9 @@ public:
 
 	//Getter for debugging or simulation purposes. Returns just a pointer, safe if the device is not found.
 	const Device* getDevice(const std::string& name) const;
+
+
+	//Adding sendPacket Function. No idea how to do this. Should be fun.
+	//Declared the method here so other files or the compiler during linkage, knows it exists.
+	void sendPacket(const std::string& src, const std::string& dest, const std::string& payload);
 };

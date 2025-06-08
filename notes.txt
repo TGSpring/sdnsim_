@@ -1,0 +1,33 @@
+This file is just my notes as I make this project.
+I asked chap gpt to quiz me on what I added with the packets on 6/7/2025 here are some notes
+
+Devices[src] creates a new entry if src doesn't exist. Not what I want for existence checks.
+Find lets me check safely without modifying.
+
+getNeighbors returns a reference to a std::vector<std::string> allowing me to avoid copying 
+and directly access to the list.
+
+std::find(begin, end, value) checks for the presence of a speicific value in an container.
+
+C++ does not allow vectors of references because references can not be reseated, and vectors require
+movable/assignable elements.
+
+SDN controllers validate and forward packets based on network policy and topology. My sendPacket()
+simulates this logic.
+
+HERE IS ANOTHER QUIZ SUMMARY:
+
+what does devices.find(src) do?
+it looks up a device by name in the controllers unordered map without modifying it.
+
+why do we return a reference to the neighbors vector?
+to avoid copying the vector and allow direct access to the list.
+
+what does std::find(neighbhors.begin(), neighbors.end(), dest) checks/
+It checks if the destination device is in the neighbors vector.
+
+why must sendPack() be defined with controller:: prefix?
+to specify it's a method of the controller class, not a free function.
+
+what happens if either source or destination device is not found?
+The packet send fails with an error message because both devices must exist for a valid send.
