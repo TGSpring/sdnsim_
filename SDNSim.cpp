@@ -1,37 +1,62 @@
-// SDNSim.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// SDNSim.cpp : This file contains that main function. Program execution begins and ends here.
+
 #include <iostream>
 #include "Controller.h"
 
-int main()
-{
+int main() {
 	Controller control;
 
-	//Adding devices TEST
+	// Adding Devices 
 	control.addDevice("Router");
 	control.addDevice("Switch");
 	control.addDevice("Firewall");
+	control.addDevice("DownLink"); //Added for testing active/inactive status
 
-	//Connect said devices TEST
+	// Connecting Devices
 	control.connectDevices("Router", "Switch");
+	control.connectDevices("Router", "DownLink");
+	//Note firewall is disconnected on purpose for packet tests.
 
-	//Disconnecting Firewall for packet test.
-	//control.connectDevices("Switch", "Firewall");
+	std::cout << "\n Packet Tests \n";
 
-	std::cout << "\n--- Packet Tests ---\n";
+	//Packet Sending Tests
 
-	//Valid
+	//1. Valid date packet: Router -> Switch
 	control.sendPacket("Router", "Switch", "Ping");
 
-	//Invalid. Destination is not a neighbor.
+	// 2. Invalid: Destination not a neighbor (Router -> Firewall)
 	control.sendPacket("Router", "Firewall", "Ping");
 
-	//Invalid. Source does not exist.
+	// 3. Invalid: Source device doesn't exist
 	control.sendPacket("Ghost", "Switch", "Ping");
 
-	//Invalid. Destination doesn't exist
+	// 4. Invalid: Destination device doesn't exist
 	control.sendPacket("Router", "Void", "Ping");
 
-	//Print device neighbors TEST
+	// --- Testing Active/Inactive Status ---
+
+	// Set DownLink device to inactive
+	Device* downLink = control.getDevice("DownLink");
+	if (downLink) {
+		downLink->setActive(false);
+	}
+
+	// Set Router device to active (just in case)
+	Device* router = control.getDevice("Router");
+	if (router) {
+		router->setActive(true);
+	}
+
+	// Attempt sending packet to inactive DownLink
+	control.sendPacket("Router", "DownLink", "Test message to offline device");
+
+	// --- Additional test: ensuring Router is active again ---
+	if (router) {
+		router->setActive(true);
+	}
+
+
+	// --- Print neighbors of devices for verification ---
 	for (const auto& deviceName : { "Router", "Switch", "Firewall" }) {
 		const Device* device = control.getDevice(deviceName);
 		if (device) {
@@ -42,9 +67,9 @@ int main()
 			std::cout << "\n";
 		}
 		else {
-			std::cout << deviceName << " Not found.\n";
+			std::cout << deviceName << " not found.\n";
 		}
 	}
+
 	return 0;
 }
-

@@ -30,3 +30,11 @@ const std::vector<std::string>& Device::getNeighbors() const {
 void Device::addNeighbor(const std::string& neighborName) {
 	neighbors.push_back(neighborName);
 }
+
+bool Device::isActive() const {
+	return active;
+}
+
+void Device::setActive(bool status) {
+	active = status;
+}

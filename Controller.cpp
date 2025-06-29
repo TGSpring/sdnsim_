@@ -18,6 +18,17 @@ const Device* Controller::getDevice(const std::string& name) const {
 	}
 }
 
+//Non-const version of getDevice, this is probably redundant but fine for now.
+Device* Controller::getDevice(const std::string& name) {
+	auto it = devices.find(name);
+	if (it != devices.end()) {
+		return &it->second;
+	}
+	else {
+		return nullptr;
+	}
+}
+
 /*
 * Adds a new device only if it's not already in the map (checks with find vs end).
 * Uses emplace to construct the device directly in the map for efficiency.
@@ -65,6 +76,20 @@ void Controller::sendPacket(const std::string& src, const std::string& dest, con
 
 	//Step 1: Check both devices exist.
 	if (itSrc != devices.end() && itDest != devices.end()) {
+
+		//Here is my attempt with isActive. If found inactive, returned early with cerr message.
+		if (!itSrc->second.isActive()) {
+			std::cerr << src << " is currently inactive.\n";
+			return;
+		}
+		std::cout << src << " is active. Preparing to send packet..." << std::endl;
+		if (!itDest->second.isActive()) {
+			std::cerr << dest << " is currently inactive.\n";
+			return;
+
+		}
+		std::cout << dest << " is active. Packet destination valid." << std::endl;
+
 		//Safe to proceed with sending packet.
 		//Step 2: Check if dest is a neighbor of src.
 		const std::vector<std::string>& neighbors = itSrc->second.getNeighbors();

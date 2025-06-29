@@ -7,6 +7,7 @@ class Device {
 private:
 	std::string name;
 	std::vector<std::string> neighbors;
+	bool active = false; //Device starts as active.
 
 public:
 	//using const ref to avoid copying strings.
@@ -17,4 +18,7 @@ public:
 
 	//Going to be used to modify neighbors.
 	void addNeighbor(const std::string& neighborName);
+
+	bool isActive() const; // Getter - no parameters.
+	void setActive(bool status); //Setter - allows changing active state
 };

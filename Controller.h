@@ -26,4 +26,8 @@ public:
 	//Adding sendPacket Function. No idea how to do this. Should be fun.
 	//Declared the method here so other files or the compiler during linkage, knows it exists.
 	void sendPacket(const std::string& src, const std::string& dest, const std::string& payload);
+
+	//Non const getter for turning on and off devices
+	Device* getDevice(const std::string& name);
+
 };
