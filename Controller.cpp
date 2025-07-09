@@ -2,36 +2,31 @@
 #include <iostream>
 #include <algorithm>
 
-/*
-* Finds device by name in unordered_map called Devices.
-* If found, returns a pointer to the device (Device*)
-* If not found, returns nullptr.
+/**
+* @brief Retrieves a const pointer to a device by name.
+* @param name Name of the device to search for.
+* @return Pointer to the device if found, nullptr otherwise.
 */
 
 const Device* Controller::getDevice(const std::string& name) const {
 	auto it = devices.find(name);
-	if (it != devices.end()) {
-		return &it->second;
-	}
-	else {
-		return nullptr;
-	}
+	return (it != devices.end()) ? &it->second : nullptr;
 }
+/**
+* @brief Retrieves a modifiable pointer to a device by name.
+* @param name Name of the device.
+* @return Mutable pointer to device if found, nullptr otherwise.
+*/
 
-//Non-const version of getDevice, this is probably redundant but fine for now.
 Device* Controller::getDevice(const std::string& name) {
 	auto it = devices.find(name);
-	if (it != devices.end()) {
-		return &it->second;
-	}
-	else {
-		return nullptr;
-	}
+	return (it != devices.end()) ? &it->second : nullptr;
 }
 
-/*
-* Adds a new device only if it's not already in the map (checks with find vs end).
-* Uses emplace to construct the device directly in the map for efficiency.
+/**
+* @brief Adds a device to the controller's map if it doesn't already exist.
+* Uses emplace to construct in-place and avoid copy overhead.
+* @param name Name of the device to add.
 */
 void Controller::addDevice(const std::string& name) {
 	if (devices.find(name) == devices.end()) {
@@ -39,70 +34,81 @@ void Controller::addDevice(const std::string& name) {
 	}
 }
 
-/*
-* Finds both devices by their names.
-* If both exist, adds each other as neighbors (bidirectional connection).
-* Otherwise, prints an error message to cerr.
+/**
+* @brief Connects two devices bidirectionally as neighbors.
+* Adds each device to the other's neighbor list if both exist.
+* @param name1 First device name.
+* @param name2 Second device name.
 */
 void Controller::connectDevices(const std::string& name1, const std::string& name2) {
-	//Auto tells the compiler to deduce the variable's type for you based on the right-hand side of the expression.
+
 	auto it1 = devices.find(name1);
 	auto it2 = devices.find(name2);
 
-	//This bit was a learning experience. Using
-	//.end to find the value while using !=.
-	//Tricky to me at first, great now.
+
 	if (it1 != devices.end() && it2 != devices.end()) {
-		//both of the devices exist, connect.
-		it1->second.addNeighbor(name2); //name2 is neighbor of name1
-		it2->second.addNeighbor(name1); //name1 is neighbor of name2
+
+		it1->second.addNeighbor(name2); 
+		it2->second.addNeighbor(name1); 
 	}
 	else {
 		std::cerr << "Error: One or both of the devices is not found\n";
 	}
 
 }
-//Adding sendPacket Function. No idea how to do this. Should be fun.
-//Learned here about why I need to be adding the Controller::, tells the compiler this function belongs to this class.
-//If I defined this inside of the connectDevices function, I would be nesting functions, which is not allowed in c++.
-//They have to be defined inside the body of the header file or outside with the qualified (Controller) name.
+
+/**
+* @brief Sends a simulated packet from one device to another.
+* 
+* This function checks that both the source and destination devices:
+* - Exist in the network
+* - Are currently active
+* - Are directly connected (neighbors)
+* 
+* If all checks pass, the packet is "sent" (printed to stdout). Otherwise,
+* appropriate error messages are logged to stderr.
+* 
+* @param src The name of the sourcr device.
+* @param dest The name of the destination device.
+* @param payload The content/data of the simulated packet.
+*/
 void Controller::sendPacket(const std::string& src, const std::string& dest, const std::string& payload) {
 
-	//Using std::endl inserts a new line while flushing a buffer, slightly slower performance, but ensures it prints.
+
 	std::cout << "Controller attempting to send packet..." << std::endl;
 
 	auto itSrc = devices.find(src);
 	auto itDest = devices.find(dest);
 
-	//Step 1: Check both devices exist.
-	if (itSrc != devices.end() && itDest != devices.end()) {
+	//Step 1: Verify both devices exist.
+	if (itSrc == devices.end() || itDest == devices.end()) {
+		std::cerr << "Packet send error: one or both devices not founds.\n";
+		return;
+	}
 
-		//Here is my attempt with isActive. If found inactive, returned early with cerr message.
-		if (!itSrc->second.isActive()) {
-			std::cerr << src << " is currently inactive.\n";
-			return;
-		}
-		std::cout << src << " is active. Preparing to send packet..." << std::endl;
-		if (!itDest->second.isActive()) {
-			std::cerr << dest << " is currently inactive.\n";
-			return;
-
-		}
-		std::cout << dest << " is active. Packet destination valid." << std::endl;
-
-		//Safe to proceed with sending packet.
-		//Step 2: Check if dest is a neighbor of src.
-		const std::vector<std::string>& neighbors = itSrc->second.getNeighbors();
-		if (std::find(neighbors.begin(), neighbors.end(), dest) != neighbors.end()) {
-			//Step 3: Packet is allowed to be sent.
-			std::cout << "Packet from " << src << " to " << dest << ": " << payload << std::endl;
-		}
-		else {
-			std::cerr << "Packet send error: " << dest << " is not a neighbor of " << src << "\n";
-		}
+	//Step 2: Check if devices are active.
+	if (!itSrc->second.isActive()) {
+		std::cerr << src << " is currently inactive.\n";
+		return;
 	}
 	else {
-		std::cerr << "Packet send error: one or both devices not found.\n";
+		std::cout << src << " is active. Preparing to send packet..." << std::endl;
+	}
+
+	if (!itDest->second.isActive()) {
+		std::cerr << dest << " is currently inactive.\n";
+	}
+	else {
+		std::cout << dest << " is active. Packet destination valid." << std::endl;
+	}
+
+	//Step 3: Check neighbor relationship.
+	const std::vector<std::string>& neighbors = itSrc->second.getNeighbors();
+	if (std::find(neighbors.begin(), neighbors.end(), dest) != neighbors.end()) {
+		std::cout << "Packet from " << src << " to " << dest << ": " << payload << std::endl;
+	}
+	else {
+		std::cerr << "Packet send error: " << dest << " is not a neighbor of " << src << "\n";
 	}
 
 }

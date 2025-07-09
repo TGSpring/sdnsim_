@@ -1,3 +1,30 @@
+
+
+/*!
+ * \mainpage SDNSim Documentation
+ *
+ * # SDNSim Project
+ *
+ * SDNSim is a C++ software-defined networking simulation that models a centralized
+ * controller managing network devices and packet routing.
+ *
+ * ## Features
+ * - Device management (add, connect, monitor)
+ * - Packet sending and routing
+ * - Fault detection and network simulation
+ *
+ * ## Build and Run
+ * - Use Visual Studio solution `SDNSim.sln` to build.
+ * - Run the resulting executable from the `Debug` or `Release` folder.
+ *
+ * ## Viewing Documentation
+ * Generate docs using Doxygen by running:
+ * ```
+ * doxygen Doxyfile
+ * ```
+ * Then open `docs/html/index.html` in your browser.
+ */
+
 // SDNSim.cpp : This file contains that main function. Program execution begins and ends here.
 
 #include <iostream>
