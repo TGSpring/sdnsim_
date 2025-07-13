@@ -25,10 +25,19 @@
  * Then open `docs/html/index.html` in your browser.
  */
 
-// SDNSim.cpp : This file contains that main function. Program execution begins and ends here.
+ // SDNSim.cpp : This file contains that main function. Program execution begins and ends here.
 
 #include <iostream>
 #include "Controller.h"
+
+/**
+* @brief Entry point for the SDNSim application.
+* 
+* Sets up the network devices and connections, then runs a series of packet sending tests, including
+* handling invalid scenarios and device active states.
+* 
+* @return int Exit status code (0 for success).
+*/
 
 int main() {
 	Controller control;

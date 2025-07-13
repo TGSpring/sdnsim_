@@ -76,50 +76,38 @@ $(function() {
 <a href="_device_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_device_8h.html">Device.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//Constructor, creates new device.</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// name(deviceName) initializer list. </span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// Creates private member name with the value passed in deviceName directly.</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">//Remains empty because initilization is done in the list.</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">    9</a></span><a class="code hl_function" href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">Device::Device</a>(<span class="keyword">const</span> std::string&amp; deviceName) : name(deviceName) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//Getter for device name. Returns copy and uses string to not modify.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//String_view would be the better option for something at scale.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">   15</a></span>std::string <a class="code hl_function" href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">Device::getName</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">return</span> name;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//Getter for neighbors vector</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//Returns a constant reference to the neighbors vector.</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">   23</a></span><span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">Device::getNeighbors</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> neighbors;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">   12</a></span><a class="code hl_function" href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">Device::Device</a>(<span class="keyword">const</span> std::string&amp; deviceName) : name(deviceName) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">   22</a></span>std::string <a class="code hl_function" href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">Device::getName</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> name;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//Adds new neighbor to this device.</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//Appends the new neighbor to the vector of neighbors.</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">Device::addNeighbor</a>(<span class="keyword">const</span> std::string&amp; neighborName) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    neighbors.push_back(neighborName);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">   34</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">Device::isActive</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> active;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_device.html#a41a30390f91382bba089b5213e5832d3">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_device.html#a41a30390f91382bba089b5213e5832d3">Device::setActive</a>(<span class="keywordtype">bool</span> status) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    active = status;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">   33</a></span><span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code hl_function" href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">Device::getNeighbors</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> neighbors;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">Device::addNeighbor</a>(<span class="keyword">const</span> std::string&amp; neighborName) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    neighbors.push_back(neighborName);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">   53</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">Device::isActive</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> active;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_device.html#a41a30390f91382bba089b5213e5832d3">   63</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_device.html#a41a30390f91382bba089b5213e5832d3">Device::setActive</a>(<span class="keywordtype">bool</span> status) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    active = status;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 <div class="ttc" id="a_device_8h_html"><div class="ttname"><a href="_device_8h.html">Device.h</a></div></div>
-<div class="ttc" id="aclass_device_html_a16847918d8607c8fec47ab72cc8500ff"><div class="ttname"><a href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">Device::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Gets the name of the device.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00015">Device.cpp:15</a></div></div>
-<div class="ttc" id="aclass_device_html_a203476ff55d58d4ac147072936f4eaeb"><div class="ttname"><a href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">Device::isActive</a></div><div class="ttdeci">bool isActive() const</div><div class="ttdoc">Checks if the device is currently active.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00034">Device.cpp:34</a></div></div>
-<div class="ttc" id="aclass_device_html_a41a30390f91382bba089b5213e5832d3"><div class="ttname"><a href="class_device.html#a41a30390f91382bba089b5213e5832d3">Device::setActive</a></div><div class="ttdeci">void setActive(bool status)</div><div class="ttdoc">Sets the device's active status.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00038">Device.cpp:38</a></div></div>
-<div class="ttc" id="aclass_device_html_a44e7df5d51c6e782186d28fef0f6858c"><div class="ttname"><a href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">Device::Device</a></div><div class="ttdeci">Device(const std::string &amp;deviceName)</div><div class="ttdoc">Constructs a Device with the given name.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00009">Device.cpp:9</a></div></div>
-<div class="ttc" id="aclass_device_html_a659e7dbc2cfed220c0a8e81207dd4d3a"><div class="ttname"><a href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">Device::addNeighbor</a></div><div class="ttdeci">void addNeighbor(const std::string &amp;neighborName)</div><div class="ttdoc">Adds a neighbor to this device.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00030">Device.cpp:30</a></div></div>
-<div class="ttc" id="aclass_device_html_ae6c15476af6e4512777e70c7a6048dbc"><div class="ttname"><a href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">Device::getNeighbors</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getNeighbors() const</div><div class="ttdoc">Gets a reference to the list of neighbors.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00023">Device.cpp:23</a></div></div>
+<div class="ttc" id="aclass_device_html_a16847918d8607c8fec47ab72cc8500ff"><div class="ttname"><a href="class_device.html#a16847918d8607c8fec47ab72cc8500ff">Device::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Gets the name of the device.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00022">Device.cpp:22</a></div></div>
+<div class="ttc" id="aclass_device_html_a203476ff55d58d4ac147072936f4eaeb"><div class="ttname"><a href="class_device.html#a203476ff55d58d4ac147072936f4eaeb">Device::isActive</a></div><div class="ttdeci">bool isActive() const</div><div class="ttdoc">Checks if the device is currently active.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00053">Device.cpp:53</a></div></div>
+<div class="ttc" id="aclass_device_html_a41a30390f91382bba089b5213e5832d3"><div class="ttname"><a href="class_device.html#a41a30390f91382bba089b5213e5832d3">Device::setActive</a></div><div class="ttdeci">void setActive(bool status)</div><div class="ttdoc">Sets the device's active status.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00063">Device.cpp:63</a></div></div>
+<div class="ttc" id="aclass_device_html_a44e7df5d51c6e782186d28fef0f6858c"><div class="ttname"><a href="class_device.html#a44e7df5d51c6e782186d28fef0f6858c">Device::Device</a></div><div class="ttdeci">Device(const std::string &amp;deviceName)</div><div class="ttdoc">Constructs a Device with the given name.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00012">Device.cpp:12</a></div></div>
+<div class="ttc" id="aclass_device_html_a659e7dbc2cfed220c0a8e81207dd4d3a"><div class="ttname"><a href="class_device.html#a659e7dbc2cfed220c0a8e81207dd4d3a">Device::addNeighbor</a></div><div class="ttdeci">void addNeighbor(const std::string &amp;neighborName)</div><div class="ttdoc">Adds a neighbor to this device.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00043">Device.cpp:43</a></div></div>
+<div class="ttc" id="aclass_device_html_ae6c15476af6e4512777e70c7a6048dbc"><div class="ttname"><a href="class_device.html#ae6c15476af6e4512777e70c7a6048dbc">Device::getNeighbors</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getNeighbors() const</div><div class="ttdoc">Gets a reference to the list of neighbors.</div><div class="ttdef"><b>Definition</b> <a href="_device_8cpp_source.html#l00033">Device.cpp:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

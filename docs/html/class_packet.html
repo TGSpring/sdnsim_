@@ -78,11 +78,15 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a data packet in the SDN simulation.  
+ <a href="class_packet.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_packet_8h_source.html">Packet.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abc2f1ae25a7d3c1a501d8d1ee7f8296a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_packet.html#abc2f1ae25a7d3c1a501d8d1ee7f8296a">Packet</a> (const std::string &amp;src, const std::string &amp;dest, const std::string &amp;data)</td></tr>
+<tr class="memdesc:abc2f1ae25a7d3c1a501d8d1ee7f8296a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a packet with specified source, destination, and payload.  <br /></td></tr>
 <tr class="separator:abc2f1ae25a7d3c1a501d8d1ee7f8296a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -95,8 +99,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a0bc61eb5adc8723a7915f08843378ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00004">4</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
+<div class="textblock"><p>Represents a data packet in the SDN simulation. </p>
+<p>Contains source, destination, and payload information. </p>
+
+<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00009">9</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abc2f1ae25a7d3c1a501d8d1ee7f8296a" name="abc2f1ae25a7d3c1a501d8d1ee7f8296a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc2f1ae25a7d3c1a501d8d1ee7f8296a">&#9670;&#160;</a></span>Packet()</h2>
@@ -130,7 +136,27 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_packet_8cpp_source.html#l00003">3</a> of file <a class="el" href="_packet_8cpp_source.html">Packet.cpp</a>.</p>
+<p>Constructs a packet with specified source, destination, and payload. </p>
+<p>Constructs a packet with a source, destination, and payload.</p>
+<p>&lt; Content or message carried by the packet. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>The name of the sending device. </td></tr>
+    <tr><td class="paramname">dest</td><td>The name of the receiving device. </td></tr>
+    <tr><td class="paramname">data</td><td>The content or message carried by the packet.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Initializes a network packet used in SDNSim to simulate communication between devices.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Name of the device sending the packet. </td></tr>
+    <tr><td class="paramname">dest</td><td>Name of teh device intended to recieve the packet. </td></tr>
+    <tr><td class="paramname">data</td><td>The content or message being transmitted. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_packet_8cpp_source.html#l00012">12</a> of file <a class="el" href="_packet_8cpp_source.html">Packet.cpp</a>.</p>
 
 </div>
 </div>
@@ -146,8 +172,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>&lt; Name of the source device sending the packet. </p>
 
-<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00007">7</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00012">12</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
 
 </div>
 </div>
@@ -162,8 +189,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>&lt; Name of the destination device receiving the packet. </p>
 
-<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00008">8</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00013">13</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
 
 </div>
 </div>
@@ -179,7 +207,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00006">6</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_packet_8h_source.html#l00011">11</a> of file <a class="el" href="_packet_8h_source.html">Packet.h</a>.</p>
 
 </div>
 </div>
