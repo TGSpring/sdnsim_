@@ -43,6 +43,7 @@
     <None Include=".gitignore">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="vercel.json" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="notes.txt">
