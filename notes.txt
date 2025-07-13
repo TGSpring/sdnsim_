@@ -1,0 +1,52 @@
+This file is just my notes as I make this project.
+I asked chap gpt to quiz me on what I added with the packets on 6/7/2025 here are some notes
+
+Devices[src] creates a new entry if src doesn't exist. Not what I want for existence checks.
+Find lets me check safely without modifying.
+
+getNeighbors returns a reference to a std::vector<std::string> allowing me to avoid copying 
+and directly access to the list.
+
+std::find(begin, end, value) checks for the presence of a speicific value in an container.
+
+C++ does not allow vectors of references because references can not be reseated, and vectors require
+movable/assignable elements.
+
+SDN controllers validate and forward packets based on network policy and topology. My sendPacket()
+simulates this logic.
+
+HERE IS ANOTHER QUIZ SUMMARY:
+
+what does devices.find(src) do?
+it looks up a device by name in the controllers unordered map without modifying it.
+
+why do we return a reference to the neighbors vector?
+to avoid copying the vector and allow direct access to the list.
+
+what does std::find(neighbhors.begin(), neighbors.end(), dest) checks/
+It checks if the destination device is in the neighbors vector.
+
+why must sendPack() be defined with controller:: prefix?
+to specify it's a method of the controller class, not a free function.
+
+what happens if either source or destination device is not found?
+The packet send fails with an error message because both devices must exist for a valid send.
+
+
+6/28/2025
+
+Worked on fault detection.
+This update introduced basic fault detection support by allowing each Device to be toggled between 
+active and inactive states, simulating network devices going offline or coming back online.
+
+Code level changes:
+Device class now added a private bool flag and bool isActive() const to check if a device is online.
+Added void setActive(bool status) to change device status.
+
+Controller class now is modified with sendPacket to include existence checks for both source and destination 
+devices. New status checks prints error messsages if either device is inactive. Graceful early exits to avoid 
+processing packets from/to down devices.
+
+SDNSim tested all of these with valid packet delivery, sending to non-neighbor or missing devices,
+Simulating a device going down and confirming the controller blocks the packet. And turning a device back on
+and checking for updated behavior.

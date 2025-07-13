@@ -1,0 +1,14 @@
+.vs/
+*.exe
+*.obj
+*.suo
+*.user
+*.VC.db
+*.VC.opendb
+*.log
+*.ipch
+*.pdb
+Debug/
+Release/
+x64/
+*.cache
