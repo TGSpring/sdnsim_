@@ -1,13 +1,4 @@
 {
-<<<<<<< HEAD
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/docs/html/index.html"
-    }
-  ],
-  "cleanUrls": true
-=======
   "version": 2,
   "builds": [
     {
@@ -21,5 +12,4 @@
       "dest": "/docs/html/$1"
     }
   ]
->>>>>>> 967eef4ae4925ba6fb63664c09a04082e380b73c
 }
