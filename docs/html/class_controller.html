@@ -99,6 +99,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac110bdd4c01603e2404f15c7f71f85ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ac110bdd4c01603e2404f15c7f71f85ef">sendPacket</a> (const std::string &amp;src, const std::string &amp;dest, const std::string &amp;payload)</td></tr>
 <tr class="memdesc:ac110bdd4c01603e2404f15c7f71f85ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to send a packet from one device to another.  <br /></td></tr>
 <tr class="separator:ac110bdd4c01603e2404f15c7f71f85ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4547aa9d7df6a571ba5d470408998f6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a4547aa9d7df6a571ba5d470408998f6f">loadTopologyFromFile</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a4547aa9d7df6a571ba5d470408998f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to read input from text file topology.txt to generate networks.  <br /></td></tr>
+<tr class="separator:a4547aa9d7df6a571ba5d470408998f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Central SDN controller that manages all devices and network logic. </p>
@@ -133,7 +136,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00031">31</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00033">33</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>
@@ -176,7 +179,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00043">43</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00045">45</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>
@@ -214,7 +217,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Mutable pointer to device if found, nullptr otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00021">21</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00023">23</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>
@@ -252,7 +255,41 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the device if found, nullptr otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00011">11</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00013">13</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4547aa9d7df6a571ba5d470408998f6f" name="a4547aa9d7df6a571ba5d470408998f6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4547aa9d7df6a571ba5d470408998f6f">&#9670;&#160;</a></span>loadTopologyFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Controller::loadTopologyFromFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to read input from text file topology.txt to generate networks. </p>
+<p>Loads network topology from a text file.</p>
+<p>Supports two sections in the file:</p><ul>
+<li><code># Devices</code>: Each line is "DeviceName active|inactive"</li>
+<li><code># Links</code>: Each line is "Device1 Device2"</li>
+</ul>
+<p>Ignores blank lines, comments, self-loops, and duplicate connections.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Path to the topology file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00136">136</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>
@@ -314,7 +351,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00075">75</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00084">84</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>
