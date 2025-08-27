@@ -1,6 +1,8 @@
 #include "Controller.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 /**
 * @brief Retrieves a const pointer to a device by name.
@@ -42,14 +44,21 @@ void Controller::addDevice(const std::string& name) {
 */
 void Controller::connectDevices(const std::string& name1, const std::string& name2) {
 
+	if (name1 == name2) return; //No self-loop
+
 	auto it1 = devices.find(name1);
 	auto it2 = devices.find(name2);
 
 
 	if (it1 != devices.end() && it2 != devices.end()) {
+		//Only add if not already present.
+		auto& neighbors1 = it1->second.getNeighbors();
+		if (std::find(neighbors1.begin(), neighbors1.end(), name2) == neighbors1.end())
+			it1->second.addNeighbor(name2);
 
-		it1->second.addNeighbor(name2); 
-		it2->second.addNeighbor(name1); 
+		auto& neighbors2 = it2->second.getNeighbors();
+		if (std::find(neighbors2.begin(), neighbors2.end(), name1) == neighbors2.end())
+			it2->second.addNeighbor(name1);
 	}
 	else {
 		std::cerr << "Error: One or both of the devices is not found\n";
@@ -59,15 +68,15 @@ void Controller::connectDevices(const std::string& name1, const std::string& nam
 
 /**
 * @brief Sends a simulated packet from one device to another.
-* 
+*
 * This function checks that both the source and destination devices:
 * - Exist in the network
 * - Are currently active
 * - Are directly connected (neighbors)
-* 
+*
 * If all checks pass, the packet is "sent" (printed to stdout). Otherwise,
 * appropriate error messages are logged to stderr.
-* 
+*
 * @param src The name of the sourcr device.
 * @param dest The name of the destination device.
 * @param payload The content/data of the simulated packet.
@@ -111,4 +120,89 @@ void Controller::sendPacket(const std::string& src, const std::string& dest, con
 		std::cerr << "Packet send error: " << dest << " is not a neighbor of " << src << "\n";
 	}
 
+}
+/**
+ * @brief Loads network topology from a text file.
+ *
+ * Supports two sections in the file:
+ * - `# Devices`: Each line is "DeviceName active|inactive"
+ * - `# Links`: Each line is "Device1 Device2"
+ *
+ * Ignores blank lines, comments, self-loops, and duplicate connections.
+ *
+ * @param filename Path to the topology file.
+ */
+
+void Controller::loadTopologyFromFile(const std::string& filename) {
+	std::ifstream file(filename);
+	if (!file.is_open()) {
+		std::cerr << "Error: Could not open topology file: " << filename << std::endl;
+		return;
+	}
+
+	enum class Section { None, Devices, Links };
+	Section currentSection = Section::None;
+	/*
+	* Each line should have two device names separated by whitespace.
+	* Use std::istringstream to split.
+	*/
+
+	std::string line;
+	while (std::getline(file, line)) {
+		//Trim leading/trailing whitespace
+		line.erase(0, line.find_first_not_of(" \t\r\n"));
+		line.erase(line.find_first_not_of(" \t\r\n") + 1);
+
+		if (line.empty() || line[0] == '#') {
+			//Detect section headers.
+			if (line.find("# Devices") != std::string::npos) currentSection = Section::Devices;
+			else if (line.find("# Links") != std::string::npos) currentSection = Section::Links;
+			continue;
+		}
+		std::istringstream iss(line);
+		if (currentSection == Section::Devices) {
+			std::string devName, state;
+			if (!(iss >> devName >> state)) {
+				std::cerr << "Invalid device line: " << line << std::endl;
+				continue;
+			}
+
+			addDevice(devName);
+
+			Device* dev = getDevice(devName);
+			if (dev) {
+				if (state == "active") dev->setActive(true);
+				else if (state == "inactive") dev->setActive(false);
+				else std::cerr << "Unknown state '" << state << " 'for device " << devName << std::endl;
+			}
+		}
+		else if (currentSection == Section::Links) {
+			std::string dev1, dev2;
+			if (!(iss >> dev1 >> dev2)) {
+				std::cerr << "Invalid link line: " << line << std::endl;
+				continue;
+			}
+
+			if (dev1 == dev2) {
+				std::cerr << "Warning: Ignoring self-loop for device " << dev1 << std::endl;
+				continue;
+			}
+
+			addDevice(dev1);
+			addDevice(dev2);
+
+			//Avoid duplicate connections
+			Device* d1 = getDevice(dev1);
+			if (d1) {
+				const auto& neighbors = d1->getNeighbors();
+				if (std::find(neighbors.begin(), neighbors.end(), dev2) != neighbors.end()) {
+					std::cerr << "Info: Skipping duplicate connection " << dev1 << " - " << dev2 << std::endl;
+					continue;
+				}
+			}
+			connectDevices(dev1, dev2);
+		}
+	}
+	file.close();
+	std::cout << "[INFO] Topology loaded from " << filename << std::endl;
 }

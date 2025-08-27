@@ -32,30 +32,30 @@
 
 /**
 * @brief Entry point for the SDNSim application.
-* 
+*
 * Sets up the network devices and connections, then runs a series of packet sending tests, including
 * handling invalid scenarios and device active states.
-* 
+*
 * @return int Exit status code (0 for success).
 */
 
 int main() {
 	Controller control;
 
-	// Adding Devices 
+	// --- Adding Devices (Hard-coded) ---
 	control.addDevice("Router");
 	control.addDevice("Switch");
 	control.addDevice("Firewall");
-	control.addDevice("DownLink"); //Added for testing active/inactive status
+	control.addDevice("DownLink"); ///< Used to test active/inactive behavior
 
-	// Connecting Devices
+	// --- Connecting Devices ---
 	control.connectDevices("Router", "Switch");
 	control.connectDevices("Router", "DownLink");
-	//Note firewall is disconnected on purpose for packet tests.
+	// Note: Firewall intentionally disconnected for testing
 
-	std::cout << "\n Packet Tests \n";
+	std::cout << "\n Packet Tests [ HARD CODED ] \n";
 
-	//Packet Sending Tests
+	// --- Packet Sending Tests ---
 
 	//1. Valid date packet: Router -> Switch
 	control.sendPacket("Router", "Switch", "Ping");
@@ -106,6 +106,25 @@ int main() {
 			std::cout << deviceName << " not found.\n";
 		}
 	}
-	//test.
+
+	// --- Load Topology from File ---
+	std::cout << "\n--- Loading from topology from file ---\n";
+	control.loadTopologyFromFile("topology.txt");
+
+	std::cout << "\nNeighbors after topology file loaded:\n";
+	for (const auto& name : { "Router", "Switch", "Firewall", "DownLink" }) {
+		const Device* dev = control.getDevice(name);
+		if (dev) {
+			std::cout << dev->getName() << " neighbors: ";
+			for (const auto& n : dev->getNeighbors()) std::cout << n << " ";
+			std::cout << "\n";
+		}
+	}
+	// --- Packet Tests (Loaded Topology) ---
+	std::cout << "\n--- Packet Tests (Loaded Topology) ---\n";
+	control.sendPacket("Router", "Switch", "Ping");
+	control.sendPacket("Router", "Firewall", "Ping");
+	control.sendPacket("Router", "DownLink", "Ping");
+
 	return 0;
 }

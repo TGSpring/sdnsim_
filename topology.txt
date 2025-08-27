@@ -1,0 +1,10 @@
+# Devices
+Router active
+Switch active
+Firewall inactive
+DownLink inactive
+
+# Links
+Router Switch
+Router DownLink
+Router Firewall

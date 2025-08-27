@@ -1,52 +1,160 @@
-This file is just my notes as I make this project.
-I asked chap gpt to quiz me on what I added with the packets on 6/7/2025 here are some notes
+SDNSim Project Roadmap
+Phase 1: Core Simulation (Current Phase)
 
-Devices[src] creates a new entry if src doesn't exist. Not what I want for existence checks.
-Find lets me check safely without modifying.
+Goal: Build the basic SDN simulator with device management, packet routing, and file-based topology.
 
-getNeighbors returns a reference to a std::vector<std::string> allowing me to avoid copying 
-and directly access to the list.
+Tasks:
 
-std::find(begin, end, value) checks for the presence of a speicific value in an container.
+Controller & Device Classes
 
-C++ does not allow vectors of references because references can not be reseated, and vectors require
-movable/assignable elements.
+Add/remove devices
 
-SDN controllers validate and forward packets based on network policy and topology. My sendPacket()
-simulates this logic.
+Connect devices bidirectionally
 
-HERE IS ANOTHER QUIZ SUMMARY:
+Track neighbors
 
-what does devices.find(src) do?
-it looks up a device by name in the controllers unordered map without modifying it.
+Set device active/inactive status
 
-why do we return a reference to the neighbors vector?
-to avoid copying the vector and allow direct access to the list.
+Add clearAllDevices() to reset network
 
-what does std::find(neighbhors.begin(), neighbors.end(), dest) checks/
-It checks if the destination device is in the neighbors vector.
+Packet Simulation
 
-why must sendPack() be defined with controller:: prefix?
-to specify it's a method of the controller class, not a free function.
+sendPacket(src, dest, payload)
 
-what happens if either source or destination device is not found?
-The packet send fails with an error message because both devices must exist for a valid send.
+Verify both devices exist
 
+Check active/inactive status
 
-6/28/2025
+Ensure they are neighbors
 
-Worked on fault detection.
-This update introduced basic fault detection support by allowing each Device to be toggled between 
-active and inactive states, simulating network devices going offline or coming back online.
+Print logs for packet attempts
 
-Code level changes:
-Device class now added a private bool flag and bool isActive() const to check if a device is online.
-Added void setActive(bool status) to change device status.
+Topology Management
 
-Controller class now is modified with sendPacket to include existence checks for both source and destination 
-devices. New status checks prints error messsages if either device is inactive. Graceful early exits to avoid 
-processing packets from/to down devices.
+Load devices and connections from topology.txt
 
-SDNSim tested all of these with valid packet delivery, sending to non-neighbor or missing devices,
-Simulating a device going down and confirming the controller blocks the packet. And turning a device back on
-and checking for updated behavior.
+Support comments (#) and blank lines
+
+Handle self-loops & duplicate connections
+
+Optionally support device states (active/inactive) in the file
+
+Move topology loading to a separate module (TopologyLoader) to simplify main.cpp
+
+Print device neighbors after loading
+
+Doxygen Documentation
+
+Already done
+
+Include full class and method documentation
+
+Testing
+
+Hard-coded network tests (for initial debug)
+
+File-based topology tests
+
+Validate packet sending in multiple scenarios
+
+Ensure logging clearly shows device states and neighbors
+
+Phase 2: GUI & Interaction
+
+Goal: Make SDNSim interactive and user-friendly.
+
+Tasks:
+
+Basic GUI
+
+Display network topology
+
+Add/remove devices from GUI
+
+Connect/disconnect devices visually
+
+Show device active/inactive status
+
+Network Controls
+
+Buttons for:
+
+Load topology file
+
+Clear network
+
+Run packet tests
+
+Toggle device active/inactive
+
+Visual Feedback
+
+Highlight source/destination devices
+
+Show packet flow (optional: animate)
+
+Display logs in GUI rather than console
+
+Phase 3: Fault Detection & Network Simulation
+
+Goal: Simulate real network behavior and failures.
+
+Tasks:
+
+Fault Detection
+
+Randomly mark devices as inactive
+
+Simulate link failure
+
+Log alerts when packets fail
+
+Rerouting
+
+Attempt alternate neighbor paths if direct link fails
+
+Track packet success/failure
+
+Statistics
+
+Packets sent/received per device
+
+Average delivery success
+
+Failed packet logs
+
+Phase 4: Advanced Features (Optional / Future)
+
+Goal: Add intelligence and Web deployment.
+
+AI/ML Integration
+
+Predict optimal routing
+
+Adaptive device state management
+
+Learning-based network optimization
+
+Web Deployment
+
+Compile using WebAssembly (WASM)
+
+Allow browser-based interaction
+
+Integrate GUI in the web
+
+Extended Topology
+
+Multiple controllers
+
+VLAN/subnet simulation
+
+Larger network scalability tests
+
+Plugin System
+
+Support custom device types
+
+Custom packet rules
+
+Extend simulation logic without modifying core

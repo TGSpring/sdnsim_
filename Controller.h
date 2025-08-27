@@ -74,4 +74,11 @@ public:
      * @param payload The message/data to be sent.
      */
     void sendPacket(const std::string& src, const std::string& dest, const std::string& payload);
+
+
+    /**
+    * @brief Function to read input from text file topology.txt to generate networks.
+    *  
+    */
+    void loadTopologyFromFile(const std::string& filename);
 };
