@@ -149,9 +149,11 @@ void Controller::loadTopologyFromFile(const std::string& filename) {
 
 	std::string line;
 	while (std::getline(file, line)) {
-		//Trim leading/trailing whitespace
+		// Trim leading whitespace
 		line.erase(0, line.find_first_not_of(" \t\r\n"));
-		line.erase(line.find_first_not_of(" \t\r\n") + 1);
+		// Trim trailing whitespace
+		line.erase(line.find_last_not_of(" \t\r\n") + 1);
+
 
 		if (line.empty() || line[0] == '#') {
 			//Detect section headers.
@@ -203,6 +205,19 @@ void Controller::loadTopologyFromFile(const std::string& filename) {
 			connectDevices(dev1, dev2);
 		}
 	}
+
+
 	file.close();
 	std::cout << "[INFO] Topology loaded from " << filename << std::endl;
+}
+
+/**
+ * @brief Returns a const reference to all devices.
+ *
+ * Allows iteration over all devices without copying the map.
+ *
+ * @return const reference to the devices map.
+ */
+const std::unordered_map<std::string, Device>& Controller::getAllDevices() const {
+	return devices;
 }

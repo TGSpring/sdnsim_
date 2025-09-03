@@ -102,6 +102,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4547aa9d7df6a571ba5d470408998f6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a4547aa9d7df6a571ba5d470408998f6f">loadTopologyFromFile</a> (const std::string &amp;filename)</td></tr>
 <tr class="memdesc:a4547aa9d7df6a571ba5d470408998f6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to read input from text file topology.txt to generate networks.  <br /></td></tr>
 <tr class="separator:a4547aa9d7df6a571ba5d470408998f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3d67b2ad55b6e43ace4c4effdb1f6ae"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, <a class="el" href="class_device.html">Device</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#af3d67b2ad55b6e43ace4c4effdb1f6ae">getAllDevices</a> () const</td></tr>
+<tr class="memdesc:af3d67b2ad55b6e43ace4c4effdb1f6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to all devices.  <br /></td></tr>
+<tr class="separator:af3d67b2ad55b6e43ace4c4effdb1f6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Central SDN controller that manages all devices and network logic. </p>
@@ -180,6 +183,31 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00045">45</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af3d67b2ad55b6e43ace4c4effdb1f6ae" name="af3d67b2ad55b6e43ace4c4effdb1f6ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3d67b2ad55b6e43ace4c4effdb1f6ae">&#9670;&#160;</a></span>getAllDevices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt; std::string, <a class="el" href="class_device.html">Device</a> &gt; &amp; Controller::getAllDevices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a const reference to all devices. </p>
+<p>Allows iteration over all devices without copying the map.</p>
+<dl class="section return"><dt>Returns</dt><dd>const reference to the devices map.</dd></dl>
+<p>Allows iteration over all devices without copying the map.</p>
+<dl class="section return"><dt>Returns</dt><dd>const reference to the devices map. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_controller_8cpp_source.html#l00221">221</a> of file <a class="el" href="_controller_8cpp_source.html">Controller.cpp</a>.</p>
 
 </div>
 </div>

@@ -29,6 +29,12 @@
 
 #include <iostream>
 #include "Controller.h"
+#include "loadTopFile.h"
+
+
+
+// Forward Declare the function from loadFromTopologyFile.cpp
+void loadAndPrintTopology(Controller& control, const std::string& filename);
 
 /**
 * @brief Entry point for the SDNSim application.
@@ -39,92 +45,20 @@
 * @return int Exit status code (0 for success).
 */
 
+
+
 int main() {
 	Controller control;
 
-	// --- Adding Devices (Hard-coded) ---
-	control.addDevice("Router");
-	control.addDevice("Switch");
-	control.addDevice("Firewall");
-	control.addDevice("DownLink"); ///< Used to test active/inactive behavior
+	// Load devices and links from file.
+	loadAndPrintTopology(control, "topology.txt");
 
-	// --- Connecting Devices ---
-	control.connectDevices("Router", "Switch");
-	control.connectDevices("Router", "DownLink");
-	// Note: Firewall intentionally disconnected for testing
-
-	std::cout << "\n Packet Tests [ HARD CODED ] \n";
-
-	// --- Packet Sending Tests ---
-
-	//1. Valid date packet: Router -> Switch
-	control.sendPacket("Router", "Switch", "Ping");
-
-	// 2. Invalid: Destination not a neighbor (Router -> Firewall)
-	control.sendPacket("Router", "Firewall", "Ping");
-
-	// 3. Invalid: Source device doesn't exist
-	control.sendPacket("Ghost", "Switch", "Ping");
-
-	// 4. Invalid: Destination device doesn't exist
-	control.sendPacket("Router", "Void", "Ping");
-
-	// --- Testing Active/Inactive Status ---
-
-	// Set DownLink device to inactive
-	Device* downLink = control.getDevice("DownLink");
-	if (downLink) {
-		downLink->setActive(false);
-	}
-
-	// Set Router device to active (just in case)
-	Device* router = control.getDevice("Router");
-	if (router) {
-		router->setActive(true);
-	}
-
-	// Attempt sending packet to inactive DownLink
-	control.sendPacket("Router", "DownLink", "Test message to offline device");
-
-	// --- Additional test: ensuring Router is active again ---
-	if (router) {
-		router->setActive(true);
-	}
-
-
-	// --- Print neighbors of devices for verification ---
-	for (const auto& deviceName : { "Router", "Switch", "Firewall" }) {
-		const Device* device = control.getDevice(deviceName);
-		if (device) {
-			std::cout << device->getName() << " neighbors: ";
-			for (const auto& neighbor : device->getNeighbors()) {
-				std::cout << neighbor << " ";
-			}
-			std::cout << "\n";
-		}
-		else {
-			std::cout << deviceName << " not found.\n";
-		}
-	}
-
-	// --- Load Topology from File ---
-	std::cout << "\n--- Loading from topology from file ---\n";
-	control.loadTopologyFromFile("topology.txt");
-
-	std::cout << "\nNeighbors after topology file loaded:\n";
-	for (const auto& name : { "Router", "Switch", "Firewall", "DownLink" }) {
-		const Device* dev = control.getDevice(name);
-		if (dev) {
-			std::cout << dev->getName() << " neighbors: ";
-			for (const auto& n : dev->getNeighbors()) std::cout << n << " ";
-			std::cout << "\n";
-		}
-	}
-	// --- Packet Tests (Loaded Topology) ---
-	std::cout << "\n--- Packet Tests (Loaded Topology) ---\n";
+	// Packet tests based on loaded topology.
 	control.sendPacket("Router", "Switch", "Ping");
 	control.sendPacket("Router", "Firewall", "Ping");
 	control.sendPacket("Router", "DownLink", "Ping");
+
+
 
 	return 0;
 }
