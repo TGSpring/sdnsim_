@@ -221,3 +221,9 @@ void Controller::loadTopologyFromFile(const std::string& filename) {
 const std::unordered_map<std::string, Device>& Controller::getAllDevices() const {
 	return devices;
 }
+
+
+void Controller::clearAllDevices() {
+	devices.clear();
+	std::cout << "[INFO] All devices cleared from the network." << std::endl;
+}

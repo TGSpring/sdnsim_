@@ -91,4 +91,14 @@ public:
  */
 
 	const std::unordered_map<std::string, Device>& getAllDevices() const;
+
+
+	/**
+	* @brief Removes all devices from the network.
+	*
+	* Clears the 'devices' map and effectively resets the network.
+	*/
+	void clearAllDevices();
 };
+
+

@@ -58,7 +58,16 @@ int main() {
 	control.sendPacket("Router", "Firewall", "Ping");
 	control.sendPacket("Router", "DownLink", "Ping");
 
+	control.clearAllDevices();
 
+	if (control.getAllDevices().empty()) {
+		std::cout << "All devices cleared successfully." << std::endl;
+
+	}
+
+	if (control.getDevice("Router") == nullptr) {
+		std::cout << "Router not found after clearing, as expected." << std::endl;
+	}
 
 	return 0;
 }
