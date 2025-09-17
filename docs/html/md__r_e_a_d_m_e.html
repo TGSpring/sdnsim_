@@ -73,30 +73,45 @@ $(function() {
   <div class="headertitle"><div class="title">SDNSim 🛰️ - Software Defined Network Simulator (C++)</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> A minimal C++ simulation of a Software Defined Network (SDN), featuring a centralized controller that manages network devices and their connections.</p>
-<p>This is an educational and expandable simulation project built with C++ and Visual Studio, designed to model basic SDN behavior like device management, neighbor relationships, and controller logic.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> SDNSim is a C++ simulation of a Software Defined Network (SDN), featuring a centralized controller that manages network devices, connections, packet routing, and network clearing. This is an <b>educational and expandable project</b> built with Visual Studio to model core SDN behavior.</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md2"></a>
-💡 Features</h1>
+💡 Features (Phase 1 Complete)</h1>
 <ul>
 <li>✅ Central <code><a class="el" href="class_controller.html" title="Central SDN controller that manages all devices and network logic.">Controller</a></code> that manages all devices <br  />
 </li>
 <li>✅ <code><a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a></code> class with neighbor tracking <br  />
 </li>
+<li>✅ Add/remove devices and bidirectional connections <br  />
+</li>
+<li>✅ <a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a> active/inactive status <br  />
+</li>
 <li>✅ Connection logic using unordered maps <br  />
 </li>
-<li>✅ Simple command-line test output <br  />
+<li>✅ Topology loading from file (<code>topology.txt</code>) <br  />
+<ul>
+<li>Supports comments, blank lines, self-loops, and duplicate connections <br  />
 </li>
-<li>🚧 More advanced features planned (see below) <br  />
+</ul>
+</li>
+<li>✅ <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> sending simulation with logs for success/failure <br  />
+</li>
+<li>✅ Network reset via <code>clearAllDevices()</code> <br  />
+</li>
+<li>✅ Fully documented with Doxygen <br  />
 </li>
 </ul>
 <hr  />
 <h1><a class="anchor" id="autotoc_md4"></a>
 📁 Project Structure</h1>
 <ul>
-<li><code><a class="el" href="_controller_8cpp.html">Controller.cpp</a></code> / <code>.h</code> — Manages all devices and their connections <br  />
+<li><code><a class="el" href="_controller_8cpp.html">Controller.cpp</a></code> / <code>.h</code> — Manages all devices and network logic <br  />
 </li>
-<li><code><a class="el" href="_device_8cpp.html">Device.cpp</a></code> / <code>.h</code> — Represents a single network node <br  />
+<li><code><a class="el" href="_device_8cpp.html">Device.cpp</a></code> / <code>.h</code> — Represents a single network device <br  />
+</li>
+<li><code><a class="el" href="_packet_8cpp.html">Packet.cpp</a></code> / <code>.h</code> — Represents a network packet (future use) <br  />
+</li>
+<li><code><a class="el" href="load_top_file_8cpp.html">loadTopFile.cpp</a></code> / <code>.h</code> — Handles topology file loading and printing <br  />
 </li>
 <li><code><a class="el" href="_s_d_n_sim_8cpp.html">SDNSim.cpp</a></code> — Entry point for simulation <br  />
 </li>
@@ -106,37 +121,76 @@ $(function() {
 <hr  />
 <h1><a class="anchor" id="autotoc_md6"></a>
 🧪 Sample Output</h1>
-<ul>
-<li>Router neighbors: Switch</li>
-<li>Switch neighbors: Router Firewall</li>
-<li>Firewall neighbors: Switch</li>
-</ul>
+<p>[INFO] Topology loaded from topology.txt &mdash; Devices Loaded &mdash; Router DownLink Firewall Switch</p>
+<p>&mdash; <a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a> Neighbors &mdash; Router neighbors: Switch DownLink Firewall DownLink neighbors: Router Firewall neighbors: Router Switch neighbors: Router</p>
+<p>&mdash; <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> Tests (Loaded Topology) &mdash; <a class="el" href="class_controller.html" title="Central SDN controller that manages all devices and network logic.">Controller</a> attempting to send packet... Router is active. Preparing to send packet... Switch is active. <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> destination valid. <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> from Router to Switch: Ping <a class="el" href="class_controller.html" title="Central SDN controller that manages all devices and network logic.">Controller</a> attempting to send packet... Router is active. Preparing to send packet... Firewall is currently inactive. <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> from Router to Firewall: Ping <a class="el" href="class_controller.html" title="Central SDN controller that manages all devices and network logic.">Controller</a> attempting to send packet... Router is active. Preparing to send packet... DownLink is currently inactive. <a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> from Router to DownLink: Ping</p>
+<p>[INFO] All devices cleared from the network. All devices cleared successfully. Router not found after clearing, as expected.</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md8"></a>
-🚀 Planned Features</h1>
+🚀 Roadmap &amp; Planned Features</h1>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Phase 1 – Core Simulation (Complete)</h2>
 <ul>
-<li>Fault detection and rerouting <br  />
+<li><a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a> management, neighbor tracking, and active/inactive status <br  />
 </li>
-<li>Latency simulation <br  />
+<li><a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> sending simulation with verification of existence, activity, and neighbor relationship <br  />
 </li>
-<li>Visual representation or logs <br  />
+<li>Topology loading from file with comments, blank lines, duplicate/self-loop handling <br  />
 </li>
-<li>AI-driven decision logic for the controller <br  />
+<li>Network clearing via <code>clearAllDevices()</code> <br  />
+</li>
+<li>Command-line tests and Doxygen documentation <br  />
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Phase 2 – GUI &amp; Interaction (Upcoming)</h2>
+<ul>
+<li>Interactive GUI to add/remove devices <br  />
+</li>
+<li>Visual display of network topology <br  />
+</li>
+<li><a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a> status toggling and packet testing through GUI <br  />
+</li>
+<li>Console log integration and optional packet flow animation <br  />
+</li>
+<li>Optimizations like <code>const std::string&amp;</code> for performance <br  />
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Phase 3 – Fault Detection &amp; Network Simulation (Upcoming)</h2>
+<ul>
+<li>Random device or link failures <br  />
+</li>
+<li>Rerouting logic for packets if direct links fail <br  />
+</li>
+<li><a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a> statistics and logging (sent/received, success/failure) <br  />
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Phase 4 – Advanced Features (Optional / Future)</h2>
+<ul>
+<li>AI/ML-driven routing and adaptive device state management <br  />
+</li>
+<li>Web-based simulation (WASM) <br  />
+</li>
+<li>Extended topologies with multiple controllers and VLAN/subnets <br  />
+</li>
+<li>Plugin system for custom device types and packet rules <br  />
 </li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md10"></a>
-🎯 Goals</h1>
-<p>This project is designed as a learning tool to explore:</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
+🎯 Learning Goals</h1>
 <ul>
-<li>Data structures like <code>unordered_map</code> <br  />
+<li>C++ data structures (<code>unordered_map</code>, <code>vector</code>) <br  />
 </li>
-<li>Object-oriented modeling in C++ <br  />
+<li>Object-oriented modeling (<code><a class="el" href="class_controller.html" title="Central SDN controller that manages all devices and network logic.">Controller</a></code>, <code><a class="el" href="class_device.html" title="Represents a network device (like a router or switch) in the SDN simulation.">Device</a></code>, <code><a class="el" href="class_packet.html" title="Represents a data packet in the SDN simulation.">Packet</a></code>) <br  />
 </li>
-<li>Network topologies and SDN logic <br  />
+<li>File parsing and topology management <br  />
 </li>
-<li>Expandability toward AI and simulation research <br  />
- </li>
+<li>Simulation of SDN logic, packet routing, and network resets <br  />
+</li>
+<li>Expandability toward GUI, AI, and advanced network simulation </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
